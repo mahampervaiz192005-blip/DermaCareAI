@@ -1,0 +1,30 @@
+/* Navbar: hero par transparent, scroll par solid navy + shadow */
+.site-header { position: fixed; inset: 0 0 auto 0; z-index: 50; color: #fff; transition: background .3s, box-shadow .3s; }
+.site-header.scrolled { background: rgba(11, 16, 41, .94); backdrop-filter: blur(14px); box-shadow: 0 6px 24px rgba(0, 0, 0, .3); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 76px; }
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand b { display: block; font: 700 19px/1.1 'Poppins', sans-serif; }
+.brand small { display: block; font-size: 10px; color: #b9b3dd; }
+.brand-mark { color: #E88CCB; display: grid; }
+.nav-links { display: flex; gap: 34px; }
+.nav-links a { font-size: 13.5px; font-weight: 500; padding: 6px 0; border-bottom: 2px solid transparent; color: #e6e2fa; }
+.nav-links a:hover { color: #fff; }
+.nav-links a.is-active { color: #fff; border-color: #7554F6; }
+.nav-right { display: flex; align-items: center; gap: 12px; }
+.nav-login, .nav-cta { display: inline-flex; align-items: center; min-height: 38px; padding: 0 22px; border-radius: 999px; font-size: 13px; font-weight: 600; transition: transform .25s, background .25s; }
+.nav-login { border: 1px solid #7554F6; color: #fff; }
+.nav-login:hover { background: rgba(117, 84, 246, .25); }
+.nav-cta { background: #7554F6; color: #fff; box-shadow: 0 6px 18px rgba(117, 84, 246, .45); }
+.nav-cta:hover { transform: translateY(-2px); background: #8a6bff; }
+.mobile-menu, .nav-mobile-actions { display: none; }
+.mobile-menu { background: none; border: 0; color: #fff; padding: 6px; }
+
+@media (max-width: 900px) {
+  .brand small { display: none; }
+  .nav-right .nav-login, .nav-right .nav-cta { display: none; }
+  .mobile-menu { display: block; }
+  .nav-links { display: none; position: absolute; top: 76px; left: 0; right: 0; flex-direction: column; gap: 0; padding: 8px 24px 22px; background: rgba(11, 16, 41, .98); }
+  .nav-links.nav-open { display: flex; }
+  .nav-links a { padding: 14px 0; border-bottom: 1px solid rgba(255, 255, 255, .08); }
+  .nav-mobile-actions { display: flex; gap: 12px; margin-top: 16px; }
+}

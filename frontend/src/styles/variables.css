@@ -1,0 +1,68 @@
+/* =====================================================================
+   DESIGN TOKENS — yahan se poori website ka look customize hota hai.
+   Theme <html data-theme="blue|pink"> se switch hoti hai (useTheme.js).
+   ===================================================================== */
+:root {
+  --sans: 'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif;
+  --serif: 'Cormorant Garamond', Georgia, serif;   /* sirf logo / monogram ke liye */
+  --max: 1200px;
+
+  /* Shape */
+  --r-card: 24px;
+  --r-lg: 32px;
+  --r-pill: 999px;
+  --shadow: 0 10px 30px rgba(30, 42, 58, .08);
+  --shadow-lift: 0 18px 44px rgba(30, 42, 58, .14);
+  --glass-blur: blur(16px);
+  --ease: .3s ease;
+
+  /* Status colours (dono themes me same) */
+  --good: #1f9d4c;
+  --good-bg: #e3f6ea;
+  --warn: #c76a12;
+  --warn-bg: #ffefdc;
+}
+
+/* ---------- Theme A: AI Purple (default) ---------- */
+:root, :root[data-theme='blue'] {
+  --primary: #7554F6;
+  --primary-deep: #5b3fd6;
+  --cta: #7554F6;
+  --cta-hover: #5b3fd6;
+  --ink: #171936;
+  --muted: #656783;
+  --page: #F7F6FF;
+  --hero-from: #C9B8FF;
+  --hero-to: #F7F6FF;
+  --soft: #ECE8FF;
+  --card: rgba(255, 255, 255, .78);
+  --card-solid: #ffffff;
+  --line: rgba(117, 84, 246, .18);
+  --footer-bg: #0B1029;
+  --footer-ink: #eeeaff;
+  --footer-muted: #b3acd6;
+  --product-a: #E4DBFF;
+  --product-b: #F3F0FF;
+}
+
+/* ---------- Theme B: Soft Pink (e-commerce) ---------- */
+:root[data-theme='pink'] {
+  --primary: #e8647c;
+  --primary-deep: #c4435d;
+  --cta: #7a2e4f;
+  --cta-hover: #5f203c;
+  --ink: #2d2d2d;
+  --muted: #6e6468;
+  --page: #fff3f5;
+  --hero-from: #fadadd;
+  --hero-to: #ffe9ee;
+  --soft: #ffe3e8;
+  --card: rgba(255, 255, 255, .8);
+  --card-solid: #ffffff;
+  --line: rgba(232, 100, 124, .2);
+  --footer-bg: #4a1d35;
+  --footer-ink: #fff0f3;
+  --footer-muted: #e3b9c6;
+  --product-a: #fbd0d8;
+  --product-b: #ffeef1;
+}
