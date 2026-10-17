@@ -14,3 +14,15 @@
 | `Shop.jsx, Dashboard.jsx, BottomNav.jsx` | Purane components – ab homepage par use nahi hote, delete kar sakte hain |
 
 Real vs demo: Navbar, scrolling, carousel, mobile menu = **kaam karte hain**. AI analysis, Grad-CAM, RAG, chat, login = **abhi backend nahi**, mockup/placeholder.
+
+## Auth (Login / Signup) — naya
+| File | Kaam |
+|---|---|
+| `src/pages/auth/Login.jsx, Signup.jsx` | Login / Signup screens (reference design) |
+| `src/pages/auth/ForgotPassword.jsx, ResetPassword.jsx` | Password reset flow |
+| `src/pages/auth/DashboardPage.jsx` | Protected `/dashboard` (abhi simple welcome page) |
+| `src/pages/auth/AuthLayout.jsx, AuthFields.jsx, auth.css` | Shared layout, inputs, saari styling (`au-` prefix) |
+| `src/context/AuthContext.jsx` | `useAuth()` — user, login, signup, logout |
+| `src/components/ProtectedRoute.jsx` | Bina login ke page open nahi hone deta |
+| `src/api/client.js` | axios instance (`/api`, cookies ke saath) |
+| `backend/` | Express + MySQL API (poori detail SETUP.md me) |

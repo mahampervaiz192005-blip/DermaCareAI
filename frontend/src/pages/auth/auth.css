@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap');
+
+/* ===== Login / Signup design tokens (sirf is page par, baqi site ko affect nahi karte) ===== */
+.au-page, .au-boot {
+  --au-bg: #070a29;
+  --au-violet: #8b6cff;
+  --au-lav: #c9bdf5;
+  --au-text: #ffffff;
+  --au-line: rgba(139, 108, 255, .42);
+  --au-field: rgba(18, 20, 74, .62);
+  --au-grad: linear-gradient(90deg, #4f5bf0 0%, #a259f7 62%, #ee6bd8 100%);
+}
+.au-boot { min-height: 100vh; background: var(--au-bg); }
+
+.au-page {
+  position: relative; min-height: 100vh; overflow: hidden; isolation: isolate;
+  display: flex; flex-direction: column;
+  font-family: 'Inter', system-ui, sans-serif; color: var(--au-text);
+  background:
+    radial-gradient(900px 600px at 12% 38%, rgba(86, 64, 255, .30), transparent 70%),
+    radial-gradient(700px 520px at 88% 14%, rgba(150, 70, 255, .22), transparent 70%),
+    radial-gradient(800px 400px at 50% 108%, rgba(190, 70, 230, .30), transparent 70%),
+    linear-gradient(180deg, #0a0e38 0%, #070a29 55%, #0b0a30 100%);
+}
+.au-page h1, .au-page h2, .au-page h3, .au-logo b, .au-brand b { font-family: 'Poppins', 'Inter', sans-serif; }
+.au-page body, .au-page { padding-bottom: 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ----- top bar ----- */
+.au-top { position: relative; z-index: 3; width: min(1240px, calc(100% - 48px)); margin: 0 auto; padding: 28px 0 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.au-brand { display: flex; align-items: center; gap: 12px; }
+.au-brand svg { width: 44px; height: 44px; color: #b88cff; filter: drop-shadow(0 0 10px rgba(168, 110, 255, .8)); flex: none; }
+.au-brand b { display: block; font-size: 22px; font-weight: 600; line-height: 1.1; }
+.au-brand small { display: block; margin-top: 3px; font-size: 12px; color: var(--au-lav); }
+.au-switch { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--au-lav); }
+.au-pill { padding: 9px 22px; border: 1px solid var(--au-violet); border-radius: 999px; color: #fff; font-weight: 500; background: rgba(139, 108, 255, .10); transition: background .2s, box-shadow .2s; }
+.au-pill:hover { background: rgba(139, 108, 255, .28); box-shadow: 0 0 18px rgba(139, 108, 255, .45); }
+
+/* ----- stage ----- */
+.au-stage { position: relative; z-index: 2; flex: 1; width: min(1240px, calc(100% - 48px)); margin: 0 auto; padding: 24px 0 64px; display: grid; grid-template-columns: minmax(0, 1fr) 470px; align-items: center; gap: 0; }
+.au-visual { position: relative; min-height: 740px; }
+
+
+.au-portrait { position: absolute; left: 10px; top: 0; width: min(540px, 100%); aspect-ratio: 1120 / 1200; }
+.au-portrait img { width: 100%; height: 100%; object-fit: cover;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 15%, #000 85%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 6%, #000 76%, transparent 98%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent 0, #000 15%, #000 85%, transparent 100%), linear-gradient(to bottom, transparent 0, #000 6%, #000 76%, transparent 98%);
+  mask-composite: intersect; }
+/* Scan effect: face ke upar ek hi halki sweeping line */
+.au-sweep { position: absolute; left: 46%; top: 20%; width: 34%; height: 52%; overflow: hidden; pointer-events: none; }
+.au-sweep::after { content: ''; position: absolute; left: 0; right: 0; height: 3px; top: 0; background: linear-gradient(90deg, transparent, #9fb4ff, #e08cff, transparent); box-shadow: 0 0 18px 4px rgba(160, 130, 255, .7); animation: au-scan 4.5s ease-in-out infinite; }
+@keyframes au-scan { 0%, 100% { top: 2%; opacity: 0; } 15%, 85% { opacity: 1; } 50% { top: 96%; } }
+
+/* floating analysis cards */
+.au-cards { position: absolute; left: 4px; top: 462px; display: flex; align-items: flex-end; }
+.au-ai { display: flex; gap: 14px; padding: 14px 18px 14px 14px; border-radius: 16px; border: 1px solid var(--au-line); background: linear-gradient(160deg, rgba(48, 40, 130, .62), rgba(16, 18, 66, .72)); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 16px 40px rgba(4, 4, 36, .55); animation: au-bob 7s ease-in-out infinite; }
+.au-ai img { width: 58px; height: 74px; object-fit: cover; border-radius: 10px; }
+.au-ai h3 { font-size: 12.5px; font-weight: 600; margin-bottom: 6px; }
+.au-ai ul { list-style: none; margin: 0; padding: 0; font-size: 11px; color: var(--au-lav); line-height: 1.55; }
+.au-ai li::before { content: ''; display: inline-block; width: 5px; height: 5px; margin-right: 8px; border-radius: 50%; background: #c26bff; vertical-align: 1px; }
+.au-ai-hair { margin-left: 10px; margin-bottom: -8px; opacity: .8; animation-delay: -3.5s; }
+@keyframes au-bob { 50% { transform: translateY(-6px); } }
+
+.au-tagline { position: absolute; left: 10px; bottom: 0; font-family: 'Caveat', cursive; font-size: 36px; font-weight: 600; line-height: 1.12; font-style: italic; color: #d6c9ff; text-shadow: 0 0 22px rgba(160, 120, 255, .55); transform: rotate(-6deg); transform-origin: left bottom; }
+
+.au-pitch { position: absolute; left: 6px; bottom: 6px; width: min(340px, 100%); }
+.au-pitch h2 { font-size: 24px; line-height: 1.25; font-weight: 600; }
+.au-pitch h2 span { color: #a98bff; }
+.au-pitch p { margin-top: 12px; font-size: 13px; line-height: 1.7; color: var(--au-lav); }
+.au-pitch ul { display: flex; gap: 8px; margin: 18px 0 0; padding: 0; list-style: none; }
+.au-pitch li { display: flex; align-items: center; gap: 6px; padding: 9px 12px; font-size: 11px; color: var(--au-lav); border: 1px solid var(--au-line); border-radius: 12px; background: rgba(30, 28, 100, .45); }
+.au-pitch li svg { color: #b58cff; }
+
+/* ----- glass card ----- */
+.au-card-wrap { position: relative; z-index: 3; }
+.au-card { padding: 34px 40px 30px; border-radius: 28px; border: 1px solid var(--au-line); background: linear-gradient(165deg, rgba(40, 34, 112, .58), rgba(13, 15, 56, .74)); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); box-shadow: 0 30px 80px rgba(3, 3, 32, .65), inset 0 0 50px rgba(124, 92, 255, .07); }
+.au-logo { display: flex; align-items: center; gap: 10px; }
+.au-logo svg { width: 38px; height: 38px; color: #b88cff; filter: drop-shadow(0 0 8px rgba(168, 110, 255, .8)); }
+.au-logo b { font-size: 20px; font-weight: 600; }
+.au-card h1 { margin-top: 22px; font-size: 32px; line-height: 1.15; font-weight: 600; letter-spacing: -.3px; }
+.au-card h1 span { background: linear-gradient(90deg, #9a86ff, #c58cff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.au-lead { margin-top: 10px; font-size: 14.5px; line-height: 1.65; color: #e3dcfb; max-width: 40ch; }
+.au-card form { margin-top: 24px; }
+
+.au-group { margin-bottom: 16px; }
+.au-group label { display: block; margin-bottom: 8px; font-size: 13px; font-weight: 500; }
+.au-field { position: relative; }
+.au-field .au-ico { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #a89be0; pointer-events: none; }
+.au-field input { width: 100%; height: 50px; padding: 0 46px 0 44px; font: inherit; font-size: 14px; color: #fff; background: var(--au-field); border: 1px solid var(--au-line); border-radius: 10px; outline: none; transition: border-color .2s, box-shadow .2s; }
+.au-field input::placeholder { color: #9d93cf; }
+.au-field input:focus { border-color: #a58bff; box-shadow: 0 0 0 3px rgba(139, 108, 255, .28); }
+.au-field input:-webkit-autofill { -webkit-text-fill-color: #fff; box-shadow: 0 0 0 100px #14174f inset; }
+.au-field.has-error input { border-color: #ff7a93; }
+.au-eye { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; display: grid; place-items: center; background: none; border: 0; border-radius: 8px; color: #a89be0; }
+.au-eye:hover { color: #fff; }
+.au-err { margin-top: 6px; font-size: 12.5px; color: #ff9bb0; }
+.au-banner { margin-bottom: 16px; padding: 11px 14px; font-size: 13.5px; line-height: 1.5; border-radius: 10px; }
+.au-banner-error { color: #ffd3dc; background: rgba(255, 90, 125, .14); border: 1px solid rgba(255, 122, 147, .5); }
+.au-banner-ok { color: #d5ffe6; background: rgba(60, 200, 120, .14); border: 1px solid rgba(90, 220, 150, .45); }
+
+.au-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 4px 0 22px; font-size: 13px; }
+.au-check { display: flex; align-items: center; gap: 9px; cursor: pointer; }
+.au-check input { appearance: none; width: 18px; height: 18px; margin: 0; border: 1px solid #8f84d8; border-radius: 4px; background: transparent; display: grid; place-items: center; cursor: pointer; }
+.au-check input:checked { background: var(--au-grad); border-color: transparent; }
+.au-check input:checked::after { content: ''; width: 9px; height: 5px; border: 2px solid #fff; border-top: 0; border-right: 0; transform: translateY(-1px) rotate(-45deg); }
+.au-link { color: #b49cff; font-weight: 500; }
+.au-link:hover { color: #fff; text-decoration: underline; }
+
+.au-btn { width: 100%; height: 52px; display: flex; align-items: center; justify-content: center; gap: 10px; border: 0; border-radius: 999px; font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 600; color: #fff; background: var(--au-grad); box-shadow: 0 10px 30px rgba(139, 92, 246, .45); transition: transform .2s, box-shadow .2s, filter .2s; }
+.au-btn:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 14px 38px rgba(170, 90, 246, .6); filter: brightness(1.06); }
+.au-btn:disabled { opacity: .7; cursor: wait; }
+.au-spin { width: 20px; height: 20px; border: 2.5px solid rgba(255, 255, 255, .35); border-top-color: #fff; border-radius: 50%; animation: au-rot .7s linear infinite; }
+@keyframes au-rot { to { transform: rotate(360deg); } }
+
+.au-legal { margin-top: 26px; font-size: 12.5px; line-height: 1.7; color: var(--au-lav); }
+.au-legal a { color: #a98bff; text-decoration: underline; text-underline-offset: 3px; }
+
+/* signup interests */
+.au-interests { border: 0; padding: 0; margin: 0 0 22px; min-width: 0; }
+.au-interests legend { padding: 0; margin-bottom: 8px; font-size: 13px; font-weight: 500; }
+.au-interests > div { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.au-chip { position: relative; display: flex; align-items: center; justify-content: center; gap: 10px; height: 56px; font-size: 13.5px; border: 1px solid var(--au-line); border-radius: 12px; background: var(--au-field); cursor: pointer; transition: border-color .2s, background .2s; }
+.au-chip input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.au-chip svg { color: #b58cff; }
+.au-chip.on { border-color: #b08cff; background: rgba(139, 108, 255, .24); box-shadow: 0 0 0 1px #b08cff inset; }
+.au-chip:focus-within { outline: 3px solid rgba(165, 139, 255, .6); outline-offset: 2px; }
+
+.au-waves { position: absolute; z-index: 1; left: 0; bottom: 0; width: 100%; height: 26vh; min-height: 160px; pointer-events: none; }
+
+/* dashboard */
+.au-dash { place-items: center; display: grid; padding: 24px; }
+.au-dash .au-card { width: min(520px, 100%); }
+
+/* ===== Responsive ===== */
+@media (max-width: 1100px) {
+  .au-stage { grid-template-columns: minmax(0, 1fr) 440px; }
+  .au-portrait { width: 470px; }
+}
+@media (max-width: 920px) {
+  /* Tablet / mobile: card pehle, branding visual neeche (compact) */
+  .au-stage { grid-template-columns: 1fr; padding-top: 12px; }
+  .au-card-wrap { order: -1; width: min(520px, 100%); margin: 0 auto; }
+  .au-visual { min-height: 0; margin-top: 36px; display: grid; gap: 22px; justify-items: center; }
+  .au-portrait, .au-cards, .au-tagline, .au-pitch { position: relative; left: auto; bottom: auto; top: auto; }
+  .au-portrait { width: min(380px, 100%); }
+  .au-cards { transform: none; margin-top: -90px; }
+  .au-tagline { transform: none; text-align: center; font-size: 34px; }
+  .au-pitch { text-align: center; }
+  .au-pitch ul { justify-content: center; flex-wrap: wrap; }
+}
+@media (max-width: 560px) {
+  .au-top { width: calc(100% - 32px); padding-top: 20px; }
+  .au-stage { width: calc(100% - 32px); }
+  .au-brand small { display: none; }
+  .au-brand svg { width: 38px; height: 38px; }
+  .au-brand b { font-size: 19px; }
+  .au-switch { font-size: 12px; gap: 8px; }
+  .au-switch { flex-direction: column; align-items: flex-end; gap: 6px; }
+  .au-pill { padding: 7px 16px; }
+  .au-card { padding: 26px 22px 24px; border-radius: 22px; }
+  .au-card h1 { font-size: 27px; }
+  .au-cards { flex-direction: column; align-items: center; gap: 12px; margin-top: -70px; }
+  .au-ai-hair { margin-left: 0; opacity: .85; }
+  .au-row { flex-wrap: wrap; }
+}
+
+/* Signup: neeche pitch text hai, isliye cards thode upar */
+.au-visual-signup { min-height: 830px; }
+.au-pitch { width: min(440px, 100%); }
+.au-pitch li { white-space: nowrap; padding: 9px 11px; }
+@media (max-width: 920px) { .au-visual-signup { min-height: 0; } }
+.au-pitch h2 span { white-space: nowrap; }
