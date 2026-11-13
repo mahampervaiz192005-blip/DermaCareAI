@@ -21,6 +21,12 @@ const limiter = (max, windowMin) =>
     message: { message: 'Too many attempts. Please wait a few minutes and try again.' },
   });
 
+// MySQL band / unreachable ho to user ko saaf message milta hai (server crash nahi hota)
+const dbDownMessage = (err) =>
+  ['ECONNREFUSED', 'PROTOCOL_CONNECTION_LOST', 'ETIMEDOUT', 'ER_CON_COUNT_ERROR'].includes(err.code)
+    ? 'The database is not reachable right now. Please try again in a moment.'
+    : 'Something went wrong. Please try again.';
+
 const publicUser = (u) => ({ id: u.id, full_name: u.full_name, email: u.email });
 const sha256 = (s) => crypto.createHash('sha256').update(s).digest('hex');
 
@@ -39,9 +45,10 @@ router.post('/signup', limiter(10, 15), async (req, res) => {
   if (Object.keys(errors).length) return res.status(400).json({ message: 'Please fix the highlighted fields.', errors });
 
   const id = crypto.randomUUID();
-  const password_hash = await bcrypt.hash(password, BCRYPT_COST);
-  const conn = await pool.getConnection();
+  let conn;
   try {
+    const password_hash = await bcrypt.hash(password, BCRYPT_COST);
+    conn = await pool.getConnection();
     await conn.beginTransaction();
     await conn.execute(
       'INSERT INTO users (id, full_name, email, password_hash, is_active) VALUES (?, ?, ?, ?, 1)',
@@ -52,14 +59,14 @@ router.post('/signup', limiter(10, 15), async (req, res) => {
     }
     await conn.commit();
   } catch (err) {
-    await conn.rollback();
+    if (conn) await conn.rollback().catch(() => {});
     if (err.code === 'ER_DUP_ENTRY') {
       return res.status(409).json({ message: 'An account with this email already exists.', errors: { email: 'This email is already registered.' } });
     }
-    console.error('signup error:', err);
-    return res.status(500).json({ message: 'Something went wrong. Please try again.' });
+    console.error('signup error:', err.code || '', err.message);
+    return res.status(500).json({ message: dbDownMessage(err) });
   } finally {
-    conn.release();
+    conn?.release();
   }
 
   setAuthCookie(res, id, true);
@@ -150,8 +157,9 @@ router.post('/reset-password', limiter(10, 15), async (req, res) => {
   if (pwErr) return res.status(400).json({ message: pwErr, errors: { password: pwErr } });
   if (typeof token !== 'string' || token.length !== 64) return res.status(400).json({ message: 'This reset link is invalid or has expired.' });
 
-  const conn = await pool.getConnection();
+  let conn;
   try {
+    conn = await pool.getConnection();
     await conn.beginTransaction();
     const [rows] = await conn.execute(
       'SELECT id, user_id FROM password_resets WHERE token_hash = ? AND used_at IS NULL AND expires_at > UTC_TIMESTAMP() LIMIT 1 FOR UPDATE',
@@ -167,11 +175,11 @@ router.post('/reset-password', limiter(10, 15), async (req, res) => {
     await conn.commit();
     res.json({ message: 'Password updated. You can now log in.' });
   } catch (err) {
-    await conn.rollback();
-    console.error('reset-password error:', err);
-    res.status(500).json({ message: 'Something went wrong. Please try again.' });
+    if (conn) await conn.rollback().catch(() => {});
+    console.error('reset-password error:', err.code || '', err.message);
+    res.status(500).json({ message: dbDownMessage(err) });
   } finally {
-    conn.release();
+    conn?.release();
   }
 });
 
